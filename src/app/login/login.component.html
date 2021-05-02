@@ -1,0 +1,43 @@
+<div class="login-container">
+  <div class="right-container">
+    <img src="assets/vectors/login_vector.png" alt="" />
+    <p class="description">
+      But I must explain to you how all this mistaken idea of denouncing
+      pleasure and praising pain
+    </p>
+  </div>
+  <div class="left-container">
+    <form class="form" [formGroup]="loginForm">
+      <h1 class="title-form">Welcome Back</h1>
+      <div class="control-container">
+        <input type="text" placeholder="Email" formControlName="email" />
+        <span class="error-message" *ngIf="reqEmail">Email is required</span>
+        <span class="error-message" *ngIf="invalidEmail">Email is invalid</span>
+      </div>
+
+      <div class="control-container">
+        <input
+          type="password"
+          placeholder="Password"
+          formControlName="password"
+        />
+        <span class="error-message" *ngIf="reqPass">Password is required</span>
+      </div>
+
+      <button
+        class="btn-login"
+        type="button"
+        (click)="loginUser(loginForm.value)"
+      >
+        Sing in
+      </button>
+      <button class="btn-google-login" type="button">
+        <img src="assets/icons/google.svg" alt="" />
+        Login with Google
+      </button>
+      <p class="register-question">
+        You dont have an account ? <a routerLink="/register">Register</a>
+      </p>
+    </form>
+  </div>
+</div>

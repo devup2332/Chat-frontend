@@ -1,0 +1,148 @@
+@import "fonts", "themes", "mixins";
+
+.login-container {
+  .right-container {
+    display: none;
+  }
+
+  .left-container {
+    font-family: $main_font;
+    height: 100vh;
+    position: relative;
+
+    .form {
+      margin: auto auto;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 80%;
+      max-width: 400px;
+      display: grid;
+      gap: 24px;
+      font-size: 14px;
+      transform: translate(-50%, -50%);
+
+      .title-form {
+        text-align: center;
+        font-size: 30px;
+      }
+
+      .control-container {
+        input {
+          @include input(map-get($light_theme, text_color_1));
+        }
+
+        &:nth-child(2) {
+          margin-top: 16px;
+        }
+
+        .error-message {
+          display: block;
+          color: map-get($light_theme, danger_color);
+          margin-top: 5px;
+          font-weight: 700;
+        }
+      }
+
+      .btn-login {
+        @include button_1;
+        margin-top: 16px;
+      }
+
+      .btn-google-login {
+        @include button_social;
+      }
+
+      .register-question {
+        text-align: center;
+
+        a {
+          color: map-get($map: $light_theme, $key: color_1);
+          font-weight: 700;
+          text-decoration: none;
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  .login-container {
+    .left-container {
+      .form {
+        font-size: 16px;
+        .title-form {
+          font-size: 40px;
+        }
+
+        .control-container {
+          input {
+            font-size: 16px;
+            height: 48px;
+          }
+        }
+
+        .btn-google-login,
+        .btn-login {
+          height: 48px;
+          font-size: 16px;
+        }
+
+        .register-question {
+          font-size: 16px;
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 1300px) {
+  .login-container {
+    display: grid;
+    grid-template-columns: 1.8fr 1fr;
+
+    .right-container {
+      display: flex;
+      flex-direction: column;
+      background: map-get($map: $light_theme, $key: bg_2);
+      align-items: center;
+      justify-content: center;
+
+      img {
+        width: 45%;
+        max-width: 510px;
+      }
+
+      .description {
+        font-family: $main_font;
+        font-size: 30px;
+        text-align: center;
+        color: map-get($map: $light_theme, $key: text_color_2);
+        font-weight: 500;
+        margin-top: 48px;
+        width: 85%;
+        max-width: 720px;
+      }
+    }
+  }
+}
+
+@media (min-width: 1600px) {
+  .login-container {
+    grid-template-columns: 2fr 1fr;
+
+    .right-container {
+      .description {
+        font-size: 35px;
+      }
+    }
+
+    .left-container {
+      .form {
+        .title-form {
+          font-size: 45px;
+        }
+      }
+    }
+  }
+}
