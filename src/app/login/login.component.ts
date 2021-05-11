@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Form, FormControl, FormGroup, Validators } from '@angular/forms';
 import { environment } from 'src/environments/environment';
+import { AuthUserService } from '../shared/services/auth-user.service';
 
 @Component({
   selector: 'app-login',
@@ -10,7 +11,7 @@ import { environment } from 'src/environments/environment';
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
 
-  constructor() {}
+  constructor(private authService: AuthUserService) {}
 
   ngOnInit(): void {
     this.loginForm = new FormGroup({
@@ -28,7 +29,10 @@ export class LoginComponent implements OnInit {
         control.markAllAsTouched()
       );
     }
-    return console.log(credentials);
+
+    this.authService._login_user(credentials).subscribe((data) => {
+      console.log(data);
+    });
   }
 
   get reqEmail() {
@@ -40,7 +44,10 @@ export class LoginComponent implements OnInit {
   }
 
   get invalidEmail() {
-    return this.loginForm.get('email')?.hasError('pattern');
+    return (
+      this.loginForm.get('email')?.hasError('pattern') &&
+      this.loginForm.get('email')?.touched
+    );
   }
 
   get reqPass() {

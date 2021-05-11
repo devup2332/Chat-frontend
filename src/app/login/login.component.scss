@@ -1,6 +1,6 @@
 @import "fonts", "themes", "mixins";
 
-.login-container {
+.login-page-container {
   .right-container {
     display: none;
   }
@@ -30,6 +30,7 @@
       .control-container {
         input {
           @include input(map-get($light_theme, text_color_1));
+          font-size: 14px;
         }
 
         &:nth-child(2) {
@@ -47,10 +48,12 @@
       .btn-login {
         @include button_1;
         margin-top: 16px;
+        font-size: 14px;
       }
 
       .btn-google-login {
         @include button_social;
+        font-size: 14px;
       }
 
       .register-question {
@@ -67,17 +70,15 @@
 }
 
 @media (min-width: 768px) {
-  .login-container {
+  .login-page-container {
     .left-container {
       .form {
-        font-size: 16px;
         .title-form {
           font-size: 40px;
         }
 
         .control-container {
           input {
-            font-size: 16px;
             height: 48px;
           }
         }
@@ -85,11 +86,6 @@
         .btn-google-login,
         .btn-login {
           height: 48px;
-          font-size: 16px;
-        }
-
-        .register-question {
-          font-size: 16px;
         }
       }
     }
@@ -97,7 +93,7 @@
 }
 
 @media (min-width: 1300px) {
-  .login-container {
+  .login-page-container {
     display: grid;
     grid-template-columns: 1.8fr 1fr;
 
@@ -128,7 +124,7 @@
 }
 
 @media (min-width: 1600px) {
-  .login-container {
+  .login-page-container {
     grid-template-columns: 2fr 1fr;
 
     .right-container {
