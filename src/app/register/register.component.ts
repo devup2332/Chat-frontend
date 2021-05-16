@@ -45,7 +45,9 @@ export class RegisterComponent implements OnInit {
         control.markAllAsTouched();
       });
     }
-    console.log(new_user);
+    this.authSrv._register_user(new_user).subscribe((res) => {
+      console.log(res);
+    });
   }
 
   get name1Req() {

@@ -6,6 +6,7 @@ import {
   ValidationErrors,
   ValidatorFn,
 } from '@angular/forms';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +15,11 @@ export class AuthUserService {
   constructor(private http: HttpClient) {}
 
   _login_user(credentials: any) {
-    return this.http.post('http://localhost:8000/api/get-token/', credentials);
+    console.log(credentials);
+    return this.http.post(
+      `${environment.backend_uri}api/auth/login`,
+      credentials
+    );
   }
 
   _check_passwords(
@@ -31,5 +36,12 @@ export class AuthUserService {
             notEqual: true,
           };
     };
+  }
+
+  _register_user(credentials: any) {
+    return this.http.post(
+      `${environment.backend_uri}api/auth/register`,
+      credentials
+    );
   }
 }

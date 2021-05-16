@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Form, FormControl, FormGroup, Validators } from '@angular/forms';
 import { environment } from 'src/environments/environment';
+import { SnackbarComponent } from '../shared/components/snackbar/snackbar.component';
 import { AuthUserService } from '../shared/services/auth-user.service';
 
 @Component({
@@ -10,10 +11,13 @@ import { AuthUserService } from '../shared/services/auth-user.service';
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
+  timer: any;
+  @ViewChild(SnackbarComponent) private snackbar: SnackbarComponent;
 
   constructor(private authService: AuthUserService) {}
 
   ngOnInit(): void {
+    //Creating Form
     this.loginForm = new FormGroup({
       email: new FormControl('', [
         Validators.required,
@@ -24,17 +28,30 @@ export class LoginComponent implements OnInit {
   }
 
   loginUser(credentials: any): void {
+    //Seting inputs to touched
     if (this.loginForm.invalid) {
       return Object.values(this.loginForm.controls).forEach((control) =>
         control.markAllAsTouched()
       );
     }
-
-    this.authService._login_user(credentials).subscribe((data) => {
-      console.log(data);
-    });
+    //Handle of res of backend
+    this.authService._login_user(credentials).subscribe(
+      (data: any) => {
+        localStorage.setItem('access', data.access);
+        localStorage.setItem('refresh', data.refresh);
+      },
+      (err) => {
+        if (this.timer) clearTimeout(this.timer);
+        const message: string = err.error.message[0];
+        this.snackbar.show(message);
+        this.timer = setTimeout(() => {
+          this.snackbar.close();
+        }, 3000);
+      }
+    );
   }
 
+  // Getters to handle messages of error in the form
   get reqEmail() {
     return (
       this.loginForm.get('email')?.hasError('required') &&
