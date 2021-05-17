@@ -42,6 +42,15 @@
         }
       }
 
+      .control.error,
+      .control.error1,
+      .control.error2 {
+        input {
+          border: 1px solid red;
+          color: red;
+        }
+      }
+
       .btn-register {
         @include button_1;
       }

@@ -1,18 +1,17 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {
-  AbstractControl,
-  FormGroup,
-  ValidationErrors,
-  ValidatorFn,
-} from '@angular/forms';
+import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
+import axios from 'axios';
 import { environment } from 'src/environments/environment';
+import { Observable } from 'rxjs';
+import { HttpService } from './http.service';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthUserService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private httpSrv: HttpService) {}
 
   _login_user(credentials: any) {
     console.log(credentials);
@@ -43,5 +42,28 @@ export class AuthUserService {
       `${environment.backend_uri}api/auth/register`,
       credentials
     );
+  }
+
+  _validate_email() {
+    return (
+      control: AbstractControl
+    ):
+      | Promise<ValidationErrors | null>
+      | Observable<ValidationErrors | null> => {
+      const email = control.value;
+      return this.http
+        .get(`${environment.backend_uri}api/auth/validate-email/${email}`)
+        .pipe(
+          map((res: any) => {
+            if (res.status) {
+              return null;
+            }
+
+            return {
+              exist: true,
+            };
+          })
+        );
+    };
   }
 }

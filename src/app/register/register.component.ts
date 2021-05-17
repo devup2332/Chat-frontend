@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { environment } from 'src/environments/environment';
 import { AuthUserService } from '../shared/services/auth-user.service';
 
@@ -22,10 +27,11 @@ export class RegisterComponent implements OnInit {
       {
         first_name: new FormControl('', Validators.required),
         last_name: new FormControl('', Validators.required),
-        email: new FormControl('', [
-          Validators.required,
-          Validators.pattern(environment.emailPatt),
-        ]),
+        email: new FormControl(
+          '',
+          [Validators.required, Validators.pattern(environment.emailPatt)],
+          this.authSrv._validate_email()
+        ),
         phone: new FormControl('', [
           Validators.required,
           Validators.pattern(environment.numberPatt),
@@ -76,6 +82,10 @@ export class RegisterComponent implements OnInit {
 
   get emailInvalid() {
     return this.registerForm.get('email')?.hasError('pattern');
+  }
+
+  get alreadyEmail() {
+    return this.registerForm.get('email')?.hasError('exist');
   }
 
   get phoneReq() {

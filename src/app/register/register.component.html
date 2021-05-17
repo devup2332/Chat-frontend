@@ -13,7 +13,12 @@
         Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil
         impedit quo minus id quod maxime placeat facere possimus
       </p>
-      <div class="control">
+      <div
+        class="control"
+        [ngClass]="{
+          error: name1Req
+        }"
+      >
         <input
           type="text"
           placeholder="First Name"
@@ -22,7 +27,12 @@
         <p class="error-message" *ngIf="name1Req">First name is required</p>
       </div>
 
-      <div class="control">
+      <div
+        class="control"
+        [ngClass]="{
+          error: name2Req
+        }"
+      >
         <input
           type="text"
           placeholder="Last Name"
@@ -31,19 +41,40 @@
         <p class="error-message" *ngIf="name2Req">Last name is required</p>
       </div>
 
-      <div class="control">
+      <div
+        class="control"
+        [ngClass]="{
+          error: emailReq,
+          error1: emailInvalid,
+          error2: alreadyEmail
+        }"
+      >
         <input type="text" placeholder="Email" formControlName="email" />
         <p class="error-message" *ngIf="emailReq">Email is required</p>
         <p class="error-message" *ngIf="emailInvalid">Email is invalid</p>
+        <p class="error-message" *ngIf="alreadyEmail">
+          Email already is in use
+        </p>
       </div>
 
-      <div class="control">
+      <div
+        class="control"
+        [ngClass]="{
+          error: phoneReq,
+          error1: phoneInvalid
+        }"
+      >
         <input type="text" placeholder="Phone Number" formControlName="phone" />
         <p class="error-message" *ngIf="phoneReq">Phone is required</p>
         <p class="error-message" *ngIf="phoneInvalid">Enter just numbers</p>
       </div>
 
-      <div class="control">
+      <div
+        class="control"
+        [ngClass]="{
+          error: passReq
+        }"
+      >
         <input
           type="password"
           placeholder="Password"
@@ -52,7 +83,12 @@
         <p class="error-message" *ngIf="passReq">Please enter your password</p>
       </div>
 
-      <div class="control">
+      <div
+        class="control"
+        [ngClass]="{
+          error: passwordIsNotEqual
+        }"
+      >
         <input
           type="password"
           placeholder="Confirm Password"
