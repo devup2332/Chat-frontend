@@ -9,13 +9,16 @@
   <div class="left-container">
     <form class="form" [formGroup]="loginForm">
       <h1 class="title-form">Welcome Back</h1>
-      <div class="control-container">
+      <div
+        class="control-container"
+        [ngClass]="{ error: reqEmail, error1: invalidEmail }"
+      >
         <input type="text" placeholder="Email" formControlName="email" />
         <span class="error-message" *ngIf="reqEmail">Email is required</span>
         <span class="error-message" *ngIf="invalidEmail">Email is invalid</span>
       </div>
 
-      <div class="control-container">
+      <div class="control-container" [ngClass]="{ error: reqPass }">
         <input
           type="password"
           placeholder="Password"

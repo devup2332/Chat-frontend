@@ -46,8 +46,12 @@
       .control.error1,
       .control.error2 {
         input {
-          border: 1px solid red;
-          color: red;
+          border: 1px solid map-get($light_theme, danger_color);
+          color: map-get($light_theme, danger_color);
+
+          &::placeholder {
+            color: map-get($light_theme, danger_color);
+          }
         }
       }
 

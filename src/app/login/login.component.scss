@@ -45,6 +45,18 @@
         }
       }
 
+      .control-container.error,
+      .control-container.error1 {
+        input {
+          border: 1px solid map-get($light_theme, danger_color);
+          color: map-get($light_theme, danger_color);
+
+          &::placeholder {
+            color: map-get($light_theme, danger_color);
+          }
+        }
+      }
+
       .btn-login {
         @include button_1;
         margin-top: 16px;

@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Form, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { SnackbarComponent } from '../shared/components/snackbar/snackbar.component';
 import { AuthUserService } from '../shared/services/auth-user.service';
@@ -14,7 +15,7 @@ export class LoginComponent implements OnInit {
   timer: any;
   @ViewChild(SnackbarComponent) private snackbar: SnackbarComponent;
 
-  constructor(private authService: AuthUserService) {}
+  constructor(private authService: AuthUserService, private router: Router) {}
 
   ngOnInit(): void {
     //Creating Form
@@ -39,6 +40,7 @@ export class LoginComponent implements OnInit {
       (data: any) => {
         localStorage.setItem('access', data.access);
         localStorage.setItem('refresh', data.refresh);
+        this.router.navigate(['/']);
       },
       (err) => {
         if (this.timer) clearTimeout(this.timer);
