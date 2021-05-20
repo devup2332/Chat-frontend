@@ -36,21 +36,21 @@ export class LoginComponent implements OnInit {
       );
     }
     //Handle of res of backend
-    this.authService._login_user(credentials).subscribe(
-      (data: any) => {
+    this.authService._login_user(credentials).subscribe((data: any) => {
+      if (!data.message) {
         localStorage.setItem('access', data.access);
         localStorage.setItem('refresh', data.refresh);
         this.router.navigate(['/']);
-      },
-      (err) => {
-        if (this.timer) clearTimeout(this.timer);
-        const message: string = err.error.message[0];
-        this.snackbar.show(message);
-        this.timer = setTimeout(() => {
-          this.snackbar.close();
-        }, 3000);
+        return;
       }
-    );
+
+      if (this.timer) clearTimeout(this.timer);
+      const message: string = data.message[0];
+      this.snackbar.show(message);
+      this.timer = setTimeout(() => {
+        this.snackbar.close();
+      }, 3000);
+    });
   }
 
   // Getters to handle messages of error in the form

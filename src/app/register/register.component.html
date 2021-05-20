@@ -23,6 +23,7 @@
           type="text"
           placeholder="First Name"
           formControlName="first_name"
+          autocomplete="off"
         />
         <p class="error-message" *ngIf="name1Req">First name is required</p>
       </div>
@@ -37,6 +38,7 @@
           type="text"
           placeholder="Last Name"
           formControlName="last_name"
+          autocomplete="off"
         />
         <p class="error-message" *ngIf="name2Req">Last name is required</p>
       </div>
@@ -49,7 +51,12 @@
           error2: alreadyEmail
         }"
       >
-        <input type="text" placeholder="Email" formControlName="email" />
+        <input
+          type="text"
+          placeholder="Email"
+          formControlName="email"
+          autocomplete="off"
+        />
         <p class="error-message" *ngIf="emailReq">Email is required</p>
         <p class="error-message" *ngIf="emailInvalid">Email is invalid</p>
         <p class="error-message" *ngIf="alreadyEmail">
@@ -64,7 +71,12 @@
           error1: phoneInvalid
         }"
       >
-        <input type="text" placeholder="Phone Number" formControlName="phone" />
+        <input
+          type="text"
+          placeholder="Phone Number"
+          formControlName="phone"
+          autocomplete="off"
+        />
         <p class="error-message" *ngIf="phoneReq">Phone is required</p>
         <p class="error-message" *ngIf="phoneInvalid">Enter just numbers</p>
       </div>
@@ -72,15 +84,18 @@
       <div
         class="control"
         [ngClass]="{
-          error: passReq
+          error: passReq,
+          error1: minLengthPass
         }"
       >
         <input
           type="password"
           placeholder="Password"
           formControlName="password"
+          autocomplete="off"
         />
         <p class="error-message" *ngIf="passReq">Please enter your password</p>
+        <p class="error-message" *ngIf="minLengthPass">Password to short</p>
       </div>
 
       <div
@@ -93,6 +108,7 @@
           type="password"
           placeholder="Confirm Password"
           formControlName="password_2"
+          autocomplete="off"
         />
         <p class="error-message" *ngIf="passwordIsNotEqual">
           Password is not equal
@@ -109,3 +125,4 @@
     </form>
   </div>
 </div>
+<app-snackbar></app-snackbar>

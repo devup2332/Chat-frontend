@@ -1,1 +1,9 @@
-<p>chat works!</p>
+<app-no-desktop *ngIf="match"></app-no-desktop>
+
+<div *ngIf="!match" class="app-page-container">
+  <nav class="app-options-bar">
+    <ul class="options">
+      <li class="menu-option"></li>
+    </ul>
+  </nav>
+</div>

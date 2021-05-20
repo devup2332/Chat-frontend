@@ -13,7 +13,12 @@
         class="control-container"
         [ngClass]="{ error: reqEmail, error1: invalidEmail }"
       >
-        <input type="text" placeholder="Email" formControlName="email" />
+        <input
+          type="text"
+          placeholder="Email"
+          formControlName="email"
+          autocomplete="off"
+        />
         <span class="error-message" *ngIf="reqEmail">Email is required</span>
         <span class="error-message" *ngIf="invalidEmail">Email is invalid</span>
       </div>
@@ -23,13 +28,14 @@
           type="password"
           placeholder="Password"
           formControlName="password"
+          autocomplete="off"
         />
         <span class="error-message" *ngIf="reqPass">Password is required</span>
       </div>
 
       <button
         class="btn-login"
-        type="button"
+        type="submit"
         (click)="loginUser(loginForm.value)"
       >
         Sing in

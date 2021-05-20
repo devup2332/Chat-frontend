@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-chat',
@@ -7,7 +6,22 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./chat.component.scss'],
 })
 export class ChatComponent implements OnInit {
+  devices: RegExp[] = [
+    /Android/i,
+    /webOS/i,
+    /iPhone/i,
+    /iPad/i,
+    /iPod/i,
+    /BlackBerry/i,
+    /Windows Phone/i,
+  ];
+
+  match: boolean = false;
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.match = this.devices.some((device) => {
+      return navigator.userAgent.match(device);
+    });
+  }
 }

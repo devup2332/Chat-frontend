@@ -1,11 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {
   AbstractControl,
   FormControl,
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
+import { SnackbarComponent } from '../shared/components/snackbar/snackbar.component';
 import { AuthUserService } from '../shared/services/auth-user.service';
 
 @Component({
@@ -15,13 +17,17 @@ import { AuthUserService } from '../shared/services/auth-user.service';
 })
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
+  timer: any;
+  //Setting snackbar to implements messages to user
+  @ViewChild(SnackbarComponent) snackbar: SnackbarComponent;
 
-  constructor(private authSrv: AuthUserService) {}
+  constructor(private authSrv: AuthUserService, private router: Router) {}
 
   ngOnInit(): void {
     this.createForm();
   }
 
+  //Create form
   createForm() {
     this.registerForm = new FormGroup(
       {
@@ -36,7 +42,10 @@ export class RegisterComponent implements OnInit {
           Validators.required,
           Validators.pattern(environment.numberPatt),
         ]),
-        password: new FormControl('', Validators.required),
+        password: new FormControl('', [
+          Validators.required,
+          Validators.minLength(9),
+        ]),
         password_2: new FormControl(''),
       },
       {
@@ -51,10 +60,28 @@ export class RegisterComponent implements OnInit {
         control.markAllAsTouched();
       });
     }
-    this.authSrv._register_user(new_user).subscribe((res) => {
-      console.log(res);
-    });
+    this.authSrv._register_user(new_user).subscribe(
+      //Handle res of backend
+      (res: any) => {
+        localStorage.setItem('access', res.access);
+        localStorage.setItem('refresh', res.refresh);
+        this.router.navigate(['/']);
+      },
+      //Handle error
+      (err) => {
+        if (err.status === 500) {
+          if (this.timer) clearTimeout(this.timer);
+          const message: string = 'Server dosent respond';
+          this.snackbar.show(message);
+          this.timer = setTimeout(() => {
+            this.snackbar.close();
+          }, 3000);
+        }
+      }
+    );
   }
+
+  //Getters to handle errors
 
   get name1Req() {
     return (
@@ -114,5 +141,9 @@ export class RegisterComponent implements OnInit {
       (this.registerForm.get('password_2')?.touched ||
         this.registerForm.get('password_2')?.dirty)
     );
+  }
+
+  get minLengthPass() {
+    return this.registerForm.get('password')?.hasError('minlength');
   }
 }

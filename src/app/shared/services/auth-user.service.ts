@@ -1,20 +1,17 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
-import axios from 'axios';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
-import { HttpService } from './http.service';
 import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthUserService {
-  constructor(private http: HttpClient, private httpSrv: HttpService) {}
+  constructor(private http: HttpClient) {}
 
   _login_user(credentials: any) {
-    console.log(credentials);
     return this.http.post(
       `${environment.backend_uri}api/auth/login`,
       credentials
