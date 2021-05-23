@@ -63,4 +63,26 @@ export class AuthUserService {
         );
     };
   }
+
+  _refreshToken() {
+    const refresh = localStorage.getItem('refresh');
+
+    return this.http
+      .post(`${environment.backend_uri}api/refresh-token`, {
+        refresh,
+      })
+      .toPromise<any>();
+  }
+
+  _getUserLogged() {
+    const access = localStorage.getItem('access');
+
+    return this.http
+      .get(`${environment.backend_uri}api/auth/get-user`, {
+        headers: {
+          Authorization: `Bearer ${access}`,
+        },
+      })
+      .toPromise<any>();
+  }
 }

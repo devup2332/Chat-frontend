@@ -63,20 +63,18 @@ export class RegisterComponent implements OnInit {
     this.authSrv._register_user(new_user).subscribe(
       //Handle res of backend
       (res: any) => {
-        localStorage.setItem('access', res.access);
-        localStorage.setItem('refresh', res.refresh);
+        localStorage.setItem('access', res.token.access);
+        localStorage.setItem('refresh', res.token.refresh);
         this.router.navigate(['/']);
       },
       //Handle error
-      (err) => {
-        if (err.status === 500) {
-          if (this.timer) clearTimeout(this.timer);
-          const message: string = 'Server dosent respond';
-          this.snackbar.show(message);
-          this.timer = setTimeout(() => {
-            this.snackbar.close();
-          }, 3000);
-        }
+      () => {
+        if (this.timer) clearTimeout(this.timer);
+        const message: string = 'Server dosent respond';
+        this.snackbar.show(message);
+        this.timer = setTimeout(() => {
+          this.snackbar.close();
+        }, 3000);
       }
     );
   }
