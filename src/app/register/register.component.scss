@@ -31,13 +31,13 @@
 
       .control {
         input {
-          @include input(map-get($light_theme, text_color_1));
+          @include input();
           font-size: 14px;
         }
 
         .error-message {
           display: block;
-          color: map-get($light_theme, danger_color);
+          color: var(--main-danger-color);
           margin-top: 5px;
           font-weight: 700;
           font-size: 14px;
@@ -48,11 +48,11 @@
       .control.error1,
       .control.error2 {
         input {
-          border: 1px solid map-get($light_theme, danger_color);
-          color: map-get($light_theme, danger_color);
+          border: 1px solid var(--main-danger-color);
+          color: var(--main-danger-color);
 
           &::placeholder {
-            color: map-get($light_theme, danger_color);
+            color: var(--main-danger-color);
           }
         }
       }
@@ -68,7 +68,7 @@
         a {
           text-decoration: none;
           font-weight: 600;
-          color: map-get($map: $light_theme, $key: color_1);
+          color: var(--main-color-1);
         }
       }
     }
@@ -107,11 +107,11 @@
       flex-direction: column;
       align-items: center;
       padding: 70px 10%;
-      background: map-get($map: $light_theme, $key: bg_2);
+      background: var(--main-bg-2);
 
       .description {
         font-weight: 500;
-        color: map-get($map: $light_theme, $key: text_color_2);
+        color: var(--main-text-color-2);
         font-size: 30px;
       }
 

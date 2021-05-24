@@ -14,11 +14,26 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   timer: any;
   @ViewChild(SnackbarComponent) private snackbar: SnackbarComponent;
+  theme: string | null;
 
   constructor(private authService: AuthUserService, private router: Router) {}
 
   ngOnInit(): void {
     //Creating Form
+    this.theme = localStorage.getItem('theme');
+    if (!this.theme) {
+      this.theme = 'light-theme';
+      localStorage.setItem('theme', 'light-theme');
+      document.body.classList.add(this.theme);
+    }
+    if (this.theme === 'dark-theme') {
+      this.theme = 'light-theme';
+      localStorage.setItem('theme', 'light-theme');
+      document.body.classList.remove('dark-theme');
+      document.body.classList.add('light-theme');
+    }
+
+    document.body.classList.add(this.theme);
     this.loginForm = new FormGroup({
       email: new FormControl('', [
         Validators.required,
@@ -37,6 +52,7 @@ export class LoginComponent implements OnInit {
     }
     //Handle of res of backend
     this.authService._login_user(credentials).subscribe((data: any) => {
+      console.log(data);
       if (!data.message) {
         localStorage.setItem('access', data.access);
         localStorage.setItem('refresh', data.refresh);

@@ -1,14 +1,35 @@
-$light_theme: (
-  color_1: #0058dc,
-  color_2: #0042a5,
-  danger_color: red,
-  text_color_1: #000000,
-  text_color_2: #ffffff,
-  bg_1: #ffffff,
-  bg_2: linear-gradient(180deg, #0058dc 0%, #00327d 100%),
-  bg_3: #e3e3e3,
+$themes: (
+  "light": (
+    "color-1": #0058dc,
+    "color-2": #0042a5,
+    "danger-color": red,
+    "text-color-1": #000000,
+    "text-color-2": #ffffff,
+    "bg-1": #ffffff,
+    "bg-2": linear-gradient(180deg, #0058dc 0%, #00327d 100%),
+    "bg-3": #e3e3e3,
+  ),
+  "dark": (
+    "color-1": #001330,
+    "color-2": #0042a5,
+    "danger-color": red,
+    "text-color-1": #ffffff,
+    "text-color-2": #000000,
+    "bg-1": #000d1f,
+    "bg-2": linear-gradient(180deg, #0058dc 0%, #00327d 100%),
+    "bg-3": #001b44,
+  ),
 );
 
-$dark_theme: (
-  color_1: #0058dc,
-);
+@each $theme, $map in $themes {
+  .#{$theme}-theme {
+    --main-color-1: #{map-get($map: $map, $key: "color-1")};
+    --main-color-2: #{map-get($map: $map, $key: "color-2")};
+    --main-danger-color: #{map-get($map: $map, $key: "danger-color")};
+    --main-text-color-1: #{map-get($map: $map, $key: "text-color-1")};
+    --main-text-color-2: #{map-get($map: $map, $key: "text-color-2")};
+    --main-bg-1: #{map-get($map: $map, $key: "bg-1")};
+    --main-bg-2: #{map-get($map: $map, $key: "bg-2")};
+    --main-bg-3: #{map-get($map: $map, $key: "bg-3")};
+  }
+}

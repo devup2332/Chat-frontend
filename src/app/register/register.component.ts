@@ -18,12 +18,27 @@ import { AuthUserService } from '../shared/services/auth-user.service';
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
   timer: any;
+  theme: string | null;
   //Setting snackbar to implements messages to user
   @ViewChild(SnackbarComponent) snackbar: SnackbarComponent;
 
   constructor(private authSrv: AuthUserService, private router: Router) {}
 
   ngOnInit(): void {
+    this.theme = localStorage.getItem('theme');
+    if (!this.theme) {
+      this.theme = 'light-theme';
+      localStorage.setItem('theme', 'light-theme');
+      document.body.classList.add(this.theme);
+    }
+    if (this.theme === 'dark-theme') {
+      this.theme = 'light-theme';
+      localStorage.setItem('theme', 'light-theme');
+      document.body.classList.remove('dark-theme');
+      document.body.classList.add('light-theme');
+    }
+
+    document.body.classList.add(this.theme);
     this.createForm();
   }
 

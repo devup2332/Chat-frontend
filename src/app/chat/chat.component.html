@@ -1,6 +1,7 @@
-<app-no-desktop *ngIf="match"></app-no-desktop>
+<h1 *ngIf="loading">...Loading Chat</h1>
 
-<div *ngIf="!match" class="app-page-container">
+<app-no-desktop *ngIf="match"></app-no-desktop>
+<div *ngIf="!match && !loading" class="app-page-container">
   <div class="app">
     <nav class="app-options-bar">
       <ul class="options">
@@ -54,7 +55,12 @@
     <div class="chats-container">
       <div class="header-chats">
         <h1 class="title-chats">Chats</h1>
-        <div class="switch" #switch (click)="switchTheme(switch)">
+        <div
+          class="switch"
+          #switch
+          (click)="switchTheme(switch)"
+          [ngClass]="{ active: darkActive }"
+        >
           <div class="ball"></div>
         </div>
       </div>
@@ -62,9 +68,20 @@
       <div class="chats-boxes">
         <div class="boxes-subcontainer">
           <div class="box" *ngFor="let chat of chats">
-            <img src="{{ chat.avatar }}" alt="" />
-            <span class="chat-name">{{ chat.name }}</span>
-            <span class="lst_message">{{ chat.last_message }}</span>
+            <img
+              src="{{
+                user.email === chat.user_1.email
+                  ? chat.user_2.avatar.url
+                  : chat.user_1.avatar.url
+              }}"
+              alt=""
+            />
+            <span class="chat-name">{{
+              user.email === chat.user_1.email
+                ? chat.user_2.first_name + " " + chat.user_2.last_name
+                : chat.user_1.first_name + " " + chat.user_1.last_name
+            }}</span>
+            <span class="lst_message">{{ chat?.last_message.message }}</span>
           </div>
         </div>
       </div>
