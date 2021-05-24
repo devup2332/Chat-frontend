@@ -3,7 +3,9 @@
 @mixin input() {
   width: 100%;
   height: 40px;
-  border: 1px solid --main-text-color-1;
+  border-color: var(--main-text-color-1);
+  border-width: 2px;
+  box-shadow: none;
   border-radius: 5px;
   font-family: $main_font;
   padding: 0px 10px;

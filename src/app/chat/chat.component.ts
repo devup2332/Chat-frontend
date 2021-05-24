@@ -31,6 +31,7 @@ export class ChatComponent implements OnInit {
   theme: string | null;
   user: any;
   chats: any[];
+  chat_selected: any;
 
   match: boolean = false;
   constructor(
@@ -102,7 +103,6 @@ export class ChatComponent implements OnInit {
     try {
       const user = await this._authSrv._getUserLogged();
       this.user = user;
-      console.log(this.user);
     } catch (err) {
       if (err.status === 401) {
         const token = await this._authSrv._refreshToken();

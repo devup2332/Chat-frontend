@@ -4,11 +4,15 @@ import { CommonModule } from '@angular/common';
 import { ChatRoutingModule } from './chat-routing.module';
 import { ChatComponent } from './chat.component';
 import { NoDesktopComponent } from './components/no-desktop/no-desktop.component';
+import { NoChatComponent } from './components/no-chat/no-chat.component';
+import { YesChatComponent } from './components/yes-chat/yes-chat.component';
 
 @NgModule({
   declarations: [
     ChatComponent,
-    NoDesktopComponent
+    NoDesktopComponent,
+    NoChatComponent,
+    YesChatComponent
   ],
   imports: [CommonModule, ChatRoutingModule],
 })
