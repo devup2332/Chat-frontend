@@ -1,29 +1,27 @@
 <div class="yes-chat-view-container" [ngClass]="{ show: chat }">
   <header class="header">
-    <img
-      src="{{
-        this.user?.id === this.chat?.user_1?.id
+    <img src="{{
+        this.user?.id !== this.chat?.user_1?.id
           ? this.chat?.user_1?.avatar?.url
           : this.chat?.user_2?.avatar?.url
-      }}"
-      alt=""
-    />
+      }}" alt="" />
     <span>
       {{
-        this.user?.id === this.chat?.user_1?.id
-          ? this.chat?.user_1?.first_name + " " + this.chat?.user_1?.last_name
-          : this.chat?.user_2?.first_name + " " + this.chat?.user_2?.last_name
+      (this.user?.id !== this.chat?.user_1?.id
+      ? (this.chat?.user_1?.first_name + " " + this.chat?.user_1?.last_name)
+      : (this.chat?.user_2?.first_name + " " + this.chat?.user_2?.last_name))
+      | nameUserPipe:8
       }}
     </span>
     <span>
       {{
-        this.user?.id === this.chat?.user_1?.id
-          ? this.chat?.user_1?.status
-            ? "Online"
-            : "Offline"
-          : this.chat?.user_2?.status
-          ? "Online"
-          : "Offline"
+      this.user?.id !== this.chat?.user_1?.id
+      ? this.chat?.user_1?.status
+      ? "Online"
+      : "Offline"
+      : this.chat?.user_2?.status
+      ? "Online"
+      : "Offline"
       }}
     </span>
   </header>
