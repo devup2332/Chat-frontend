@@ -19,4 +19,16 @@ export class ChatServiceService {
       })
       .toPromise<any>();
   }
+
+  //Get the chat's information
+  _getChat(id: number) {
+    const access = localStorage.getItem('access');
+    return this.router
+      .get(`${environment.backend_uri}api/get-chat/${id}`, {
+        headers: {
+          Authorization: `Bearer ${access}`,
+        },
+      })
+      .toPromise<any>();
+  }
 }

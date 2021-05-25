@@ -67,7 +67,7 @@
 
       <div class="chats-boxes">
         <div class="boxes-subcontainer">
-          <div class="box" *ngFor="let chat of chats">
+          <div class="box" *ngFor="let chat of chats" (click)="setChat(chat)">
             <img
               src="{{
                 user.email === chat.user_1.email
@@ -89,6 +89,6 @@
 
     <app-no-chat *ngIf="!chat_selected"></app-no-chat>
 
-    <app-yes-chat *ngIf="chat_selected"></app-yes-chat>
+    <app-yes-chat></app-yes-chat>
   </div>
 </div>

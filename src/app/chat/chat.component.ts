@@ -1,15 +1,9 @@
-import {
-  AfterContentInit,
-  AfterViewInit,
-  Component,
-  ElementRef,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { chats } from '../../../data';
 import { AuthUserService } from '../shared/services/auth-user.service';
 import { ChatServiceService } from '../shared/services/chat-service.service';
+import { NoChatComponent } from './components/no-chat/no-chat.component';
+import { YesChatComponent } from './components/yes-chat/yes-chat.component';
 
 @Component({
   selector: 'app-chat',
@@ -17,6 +11,8 @@ import { ChatServiceService } from '../shared/services/chat-service.service';
   styleUrls: ['./chat.component.scss'],
 })
 export class ChatComponent implements OnInit {
+  @ViewChild(NoChatComponent) private noChatView: NoChatComponent;
+  @ViewChild(YesChatComponent) private yesChatView: YesChatComponent | null;
   devices: RegExp[] = [
     /Android/i,
     /webOS/i,
@@ -31,6 +27,7 @@ export class ChatComponent implements OnInit {
   theme: string | null;
   user: any;
   chats: any[];
+  chat: any;
   chat_selected: any;
 
   match: boolean = false;
@@ -86,17 +83,23 @@ export class ChatComponent implements OnInit {
     }
   }
 
-  logout() {
+  async logout() {
+    await this._authSrv._logout_user();
     localStorage.removeItem('access');
     localStorage.removeItem('refresh');
     this.router.navigate(['/login']);
-    console.log(this.theme);
     if (this.theme === 'dark-theme') {
       document.body.classList.remove('dark-theme');
 
       localStorage.setItem('theme', 'light-theme');
       document.body.classList.add('light-theme');
     }
+  }
+
+  async setChat(chat?: any) {
+    this.chat_selected = chat;
+
+    this.yesChatView?.setChat(chat.id, this.user);
   }
 
   async getUserLogged() {

@@ -85,4 +85,15 @@ export class AuthUserService {
       })
       .toPromise<any>();
   }
+
+  _logout_user() {
+    const access = localStorage.getItem('access');
+    return this.http
+      .delete(`${environment.backend_uri}api/logout`, {
+        headers: {
+          Authorization: `Bearer ${access}`,
+        },
+      })
+      .toPromise<any>();
+  }
 }

@@ -3,13 +3,12 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-no-chat',
   templateUrl: './no-chat.component.html',
-  styleUrls: ['./no-chat.component.scss']
+  styleUrls: ['./no-chat.component.scss'],
 })
 export class NoChatComponent implements OnInit {
+  chat: any;
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }
