@@ -52,7 +52,6 @@ export class LoginComponent implements OnInit {
     }
     //Handle of res of backend
     this.authService._login_user(credentials).subscribe((data: any) => {
-      console.log(data);
       if (!data.message) {
         localStorage.setItem('access', data.access);
         localStorage.setItem('refresh', data.refresh);

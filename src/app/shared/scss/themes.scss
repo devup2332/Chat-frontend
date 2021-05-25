@@ -8,6 +8,7 @@ $themes: (
     "bg-1": #ffffff,
     "bg-2": linear-gradient(180deg, #0058dc 0%, #00327d 100%),
     "bg-3": #e3e3e3,
+    "bg-4": #fafafa,
   ),
   "dark": (
     "color-1": #001330,
@@ -18,6 +19,7 @@ $themes: (
     "bg-1": #000d1f,
     "bg-2": linear-gradient(180deg, #0058dc 0%, #00327d 100%),
     "bg-3": #001b44,
+    "bg-4": #001330,
   ),
 );
 
@@ -31,5 +33,6 @@ $themes: (
     --main-bg-1: #{map-get($map: $map, $key: "bg-1")};
     --main-bg-2: #{map-get($map: $map, $key: "bg-2")};
     --main-bg-3: #{map-get($map: $map, $key: "bg-3")};
+    --main-bg-4: #{map-get($map: $map, $key: "bg-4")};
   }
 }

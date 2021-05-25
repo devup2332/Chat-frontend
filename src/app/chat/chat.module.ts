@@ -7,6 +7,7 @@ import { NoDesktopComponent } from './components/no-desktop/no-desktop.component
 import { NoChatComponent } from './components/no-chat/no-chat.component';
 import { YesChatComponent } from './components/yes-chat/yes-chat.component';
 import { SharedModule } from '../shared/shared.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,6 @@ import { SharedModule } from '../shared/shared.module';
     NoChatComponent,
     YesChatComponent,
   ],
-  imports: [CommonModule, ChatRoutingModule, SharedModule],
+  imports: [CommonModule, ChatRoutingModule, SharedModule, ReactiveFormsModule],
 })
 export class ChatModule {}
