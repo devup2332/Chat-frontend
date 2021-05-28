@@ -58,6 +58,7 @@ export class ChatComponent implements OnInit {
     //Get data of user's chats
 
     this.chats = await this._chatSrv._getChats();
+    console.log(this.chats);
 
     await this.getUserLogged();
 
@@ -98,8 +99,11 @@ export class ChatComponent implements OnInit {
 
   async setChat(chat?: any) {
     this.chat_selected = chat;
-
     this.yesChatView?.setChat(chat.id, this.user);
+  }
+
+  async newMessage(e: string) {
+    this.chats = await this._chatSrv._getChats();
   }
 
   async getUserLogged() {
@@ -109,7 +113,6 @@ export class ChatComponent implements OnInit {
     } catch (err) {
       if (err.status === 401) {
         const token = await this._authSrv._refreshToken();
-        console.log(token.access);
         localStorage.setItem('access', token.access);
         this.user = await this._authSrv._getUserLogged();
       }

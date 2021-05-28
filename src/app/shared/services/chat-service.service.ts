@@ -31,4 +31,22 @@ export class ChatServiceService {
       })
       .toPromise<any>();
   }
+
+  _sendMesage(message: { [key: string]: string }, id: string) {
+    const access = localStorage.getItem('access');
+    return this.router
+      .post(
+        `${environment.backend_uri}api/new-message`,
+        {
+          message,
+          id,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${access}`,
+          },
+        }
+      )
+      .toPromise<any>();
+  }
 }

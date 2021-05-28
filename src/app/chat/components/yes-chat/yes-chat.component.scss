@@ -4,9 +4,10 @@
 
 .yes-chat-view-container.show {
   display: block;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
+  max-height: 90vh;
+  display: grid;
+  grid-template-rows: 0.3fr 3fr 0.5fr;
+
   .header {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -39,7 +40,30 @@
   }
 
   .bubbles-container {
-    height: 100%;
+    overflow-y: auto;
+
+    .bubble-scroll-container {
+      display: grid;
+      padding: 0px 2.5rem;
+      gap: 16px;
+
+      .bubble {
+        background: var(--main-bg-5);
+        width: fit-content;
+        height: fit-content;
+        padding: 7px 10px;
+        color: var(--main-text-color-1);
+        border-radius: 10px;
+
+        transition: background 0.3s ease, color 0.3s ease;
+      }
+
+      .bubble.own {
+        justify-self: right;
+        background: #0058dc;
+        color: #ffffff;
+      }
+    }
   }
 
   .input-form {

@@ -26,11 +26,14 @@
     </span>
   </header>
 
-  <pre>
-    {{chat|json}}
-  </pre>
+  <div class="bubbles-container" #bubbles>
 
-  <div class="bubbles-container"></div>
+    <div class="bubble-scroll-container">
+      <span class="bubble" [ngClass]="{'own':this.user?.id===message?.emitter}"
+        *ngFor="let message of chat?.messages">{{message.message}}</span>
+    </div>
+
+  </div>
 
   <form class="input-form" [formGroup]="messageForm" (ngSubmit)="sendMessage(messageForm.value)">
     <div class="input-container-sendmessage">
