@@ -5,26 +5,14 @@
   <div class="app">
     <nav class="app-options-bar">
       <ul class="options">
-        <li class="menu-option">
+        <li class="menu-option" (click)="openModal()">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22 22">
             <path
               d="M9.958 0C4 0-.735 5.127.095 11.125c.529 3.822 3.428 7.031 7.225 8.043 1.414.377 2.874.457 4.34.204 1.224-.212 2.48-.117 3.679.183l1.457.364c1.889.473 3.605-1.208 3.122-3.06l-.278-1.069c-.302-1.16-.367-2.385-.055-3.542a9.657 9.657 0 00.104-4.588C18.771 3.415 14.873 0 9.958 0m0 2c3.952 0 7.047 2.71 7.776 6.083a7.649 7.649 0 01-.08 3.643c-1.35 4.992 2.598 6.996-1.83 5.888-1.473-.368-3.008-.472-4.505-.213a8.09 8.09 0 01-3.484-.165c-3.027-.807-5.342-3.373-5.76-6.385C1.405 5.997 5.269 2 9.958 2" />
           </svg>
         </li>
 
-        <li class="menu-option">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-            <path
-              d="M30.922 11.727l-14-10.91a1.498 1.498 0 00-1.844 0l-14 10.91A1.5 1.5 0 002 14.41h2.5V30A1.5 1.5 0 006 31.5h6.11a1.5 1.5 0 001.5-1.5v-4.65A2.393 2.393 0 0116 22.96c.638 0 1.237.249 1.697.708a2.34 2.34 0 01.693 1.682V30a1.5 1.5 0 001.5 1.5H26a1.5 1.5 0 001.5-1.5V14.41H30a1.501 1.501 0 00.922-2.683zM24.5 12.91V28.5h-3.11v-3.15c0-1.454-.564-2.81-1.58-3.81A5.355 5.355 0 0016 19.96a5.396 5.396 0 00-5.39 5.39v3.15H7.5V12.91a1.5 1.5 0 00-1.178-1.465L16 3.902l9.678 7.543A1.5 1.5 0 0024.5 12.91z" />
-          </svg>
-        </li>
-        <li class="menu-option">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-            <path fill="none" d="M0 0h24v24H0V0z" />
-            <path
-              d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 001.48-5.34c-.47-2.78-2.79-5-5.59-5.34a6.505 6.505 0 00-7.27 7.27c.34 2.8 2.56 5.12 5.34 5.59a6.5 6.5 0 005.34-1.48l.27.28v.79l4.25 4.25c.41.41 1.08.41 1.49 0 .41-.41.41-1.08 0-1.49L15.5 14zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" />
-          </svg>
-        </li>
+
 
         <li class="menu-option">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
@@ -56,7 +44,8 @@
       </div>
 
       <div class="chats-boxes">
-        <div class="boxes-subcontainer">
+        <h1 *ngIf="chats.length<1" class="no-chats-message">You dont have any chat</h1>
+        <div class="boxes-subcontainer" *ngIf="chats.length<0">
           <div class="box" *ngFor="let chat of chats" (click)="setChat(chat)">
             <img src="{{
                 user.email === chat.user_1.email
@@ -79,3 +68,5 @@
     <app-yes-chat [chat]="chat_selected" (newMessage)="newMessage($event)"></app-yes-chat>
   </div>
 </div>
+
+<app-modal-new-chat [modalActive]="modalVisible"></app-modal-new-chat>

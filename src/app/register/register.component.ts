@@ -121,7 +121,10 @@ export class RegisterComponent implements OnInit {
   }
 
   get emailInvalid() {
-    return this.registerForm.get('email')?.hasError('pattern');
+    return (
+      this.registerForm.get('email')?.hasError('pattern') &&
+      this.registerForm.get('email')?.touched
+    );
   }
 
   get alreadyEmail() {

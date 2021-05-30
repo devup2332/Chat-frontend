@@ -1,0 +1,10 @@
+<div class="new-chat-modal-container" [ngClass]="{visible:modalActive}" (click)="closeModal($event)">
+    <form class="modal" [formGroup]="newChatForm">
+        <h1 class="title-modal">Select a chat</h1>
+        <div class="input-container">
+            <input type="text" placeholder="Search" formControlName="search">
+        </div>
+        <button class="cancel-btn" (click)="closeModal($event)">Cancel</button>
+        <button class="create-btn">Create</button>
+    </form>
+</div>

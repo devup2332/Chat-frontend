@@ -41,6 +41,23 @@
 
   .bubbles-container {
     overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #0058dc var(--main-bg-4);
+    transition: scrollbar-color 0.3s ease;
+
+    &::-webkit-scrollbar-thumb {
+      border-radius: 10px;
+      background: #a3a3a3;
+    }
+
+    &::-webkit-scrollbar {
+      width: 20px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: green;
+      color: green;
+    }
 
     .bubble-scroll-container {
       display: grid;

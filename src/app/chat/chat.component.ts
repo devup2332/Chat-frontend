@@ -1,7 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthUserService } from '../shared/services/auth-user.service';
 import { ChatServiceService } from '../shared/services/chat-service.service';
+import { ModalNewChatComponent } from './components/modal-new-chat/modal-new-chat.component';
 import { NoChatComponent } from './components/no-chat/no-chat.component';
 import { YesChatComponent } from './components/yes-chat/yes-chat.component';
 
@@ -11,8 +12,8 @@ import { YesChatComponent } from './components/yes-chat/yes-chat.component';
   styleUrls: ['./chat.component.scss'],
 })
 export class ChatComponent implements OnInit {
-  @ViewChild(NoChatComponent) private noChatView: NoChatComponent;
   @ViewChild(YesChatComponent) private yesChatView: YesChatComponent | null;
+  @ViewChild(ModalNewChatComponent) private modalChat: ModalNewChatComponent;
   devices: RegExp[] = [
     /Android/i,
     /webOS/i,
@@ -29,6 +30,7 @@ export class ChatComponent implements OnInit {
   chats: any[];
   chat: any;
   chat_selected: any;
+  modalVisible: undefined | boolean = false;
 
   match: boolean = false;
   constructor(
@@ -38,6 +40,7 @@ export class ChatComponent implements OnInit {
   ) {}
 
   async ngOnInit(): Promise<void> {
+    //Setting a theme if theme variables dosent exist
     this.theme = localStorage.getItem('theme');
     if (!this.theme) {
       this.theme = 'light-theme';
@@ -58,12 +61,13 @@ export class ChatComponent implements OnInit {
     //Get data of user's chats
 
     this.chats = await this._chatSrv._getChats();
-    console.log(this.chats);
 
     await this.getUserLogged();
 
     this.loading = false;
   }
+
+  //Handler for switch theme
 
   switchTheme(toggle: HTMLDivElement) {
     toggle.classList.toggle('active');
@@ -117,6 +121,10 @@ export class ChatComponent implements OnInit {
         this.user = await this._authSrv._getUserLogged();
       }
     }
+  }
+
+  openModal() {
+    this.modalChat.modalActive = true;
   }
 
   get darkActive() {
