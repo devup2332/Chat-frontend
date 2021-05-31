@@ -51,21 +51,31 @@ export class LoginComponent implements OnInit {
       );
     }
     //Handle of res of backend
-    this.authService._login_user(credentials).subscribe((data: any) => {
-      if (!data.message) {
-        localStorage.setItem('access', data.access);
-        localStorage.setItem('refresh', data.refresh);
-        this.router.navigate(['/']);
-        return;
-      }
+    this.authService._login_user(credentials).subscribe(
+      (data: any) => {
+        if (!data.message) {
+          localStorage.setItem('access', data.access);
+          localStorage.setItem('refresh', data.refresh);
+          this.router.navigate(['/']);
+          return;
+        }
 
-      if (this.timer) clearTimeout(this.timer);
-      const message: string = data.message[0];
-      this.snackbar.show(message);
-      this.timer = setTimeout(() => {
-        this.snackbar.close();
-      }, 3000);
-    });
+        if (this.timer) clearTimeout(this.timer);
+        const message: string = data.message[0];
+        this.snackbar.show(message);
+        this.timer = setTimeout(() => {
+          this.snackbar.close();
+        }, 3000);
+      },
+      () => {
+        if (this.timer) clearTimeout(this.timer);
+        const message: string = 'Server dosent respond';
+        this.snackbar.show(message);
+        this.timer = setTimeout(() => {
+          this.snackbar.close();
+        }, 3000);
+      }
+    );
   }
 
   // Getters to handle messages of error in the form

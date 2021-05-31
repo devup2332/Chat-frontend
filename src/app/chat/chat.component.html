@@ -45,7 +45,7 @@
 
       <div class="chats-boxes">
         <h1 *ngIf="chats.length<1" class="no-chats-message">You dont have any chat</h1>
-        <div class="boxes-subcontainer" *ngIf="chats.length<0">
+        <div class="boxes-subcontainer" *ngIf="chats.length>  0">
           <div class="box" *ngFor="let chat of chats" (click)="setChat(chat)">
             <img src="{{
                 user.email === chat.user_1.email

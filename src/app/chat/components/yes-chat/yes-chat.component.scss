@@ -47,16 +47,16 @@
 
     &::-webkit-scrollbar-thumb {
       border-radius: 10px;
-      background: #a3a3a3;
+      background: #0058dc;
     }
 
     &::-webkit-scrollbar {
-      width: 20px;
+      width: 5px;
     }
 
     &::-webkit-scrollbar-track {
-      background: green;
-      color: green;
+      background: var(--main-bg-4);
+      color: #0058dc;
     }
 
     .bubble-scroll-container {

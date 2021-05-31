@@ -49,16 +49,17 @@ export class YesChatComponent implements OnInit, OnDestroy {
       }
     });
 
-    this._pusherSrv.channel.bind('new-message-user', (data: any) => {
-      console.log('new message');
-
+    this._pusherSrv.channel.bind('new-message-user', async (data: any) => {
       this.chat?.messages.push(data?.message);
+      setTimeout(() => {
+        this.bubbles.nativeElement.scroll({
+          top: 9000000,
+          left: 0,
+          behavior: 'smooth',
+        });
+      }, 100);
 
       this.newMessage.emit(data?.message?.message);
-      this.bubbles.nativeElement.scroll({
-        top: this.bubbles.nativeElement.scrollHeight + 300,
-        left: 0,
-      });
     });
   }
 
@@ -84,6 +85,7 @@ export class YesChatComponent implements OnInit, OnDestroy {
     this.bubbles.nativeElement.scrollTo({
       top: h,
       left: 0,
+      behavior: 'smooth',
     });
     this.messageForm.reset();
   }
